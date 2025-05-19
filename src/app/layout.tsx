@@ -1,5 +1,9 @@
 import "@/styles/globals.css";
+import "@uploadthing/react/styles.css";
 
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import {
@@ -24,6 +28,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={`${geist.variable}`}>
+      <NextSSRPlugin
+        routerConfig={extractRouterConfig(ourFileRouter)}
+      />
         <body className="flex flex-col gap-4">
         <div className="w-full">
           <TopNav/>
