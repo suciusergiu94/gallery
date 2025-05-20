@@ -25,19 +25,21 @@ const geist = Geist({
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <ClerkProvider>
-      <html lang="en" className={`${geist.variable}`}>
-      <NextSSRPlugin
-        routerConfig={extractRouterConfig(ourFileRouter)}
-      />
+  return (<>
+    <NextSSRPlugin
+      routerConfig={extractRouterConfig(ourFileRouter)}
+    />
+      <ClerkProvider>
+        <html lang="en" className={`${geist.variable}`}>
+
         <body className="flex flex-col gap-4">
         <div className="w-full">
           <TopNav/>
         </div>
         {children}
         </body>
-      </html>
-    </ClerkProvider>
+        </html>
+      </ClerkProvider>
+  </>
   );
 }
