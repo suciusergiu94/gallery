@@ -10,6 +10,7 @@ import {
   ClerkProvider,
 } from '@clerk/nextjs'
 import { TopNav } from "@/app/_components/TopNav";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -32,17 +33,19 @@ export default function RootLayout({
     />
       <ClerkProvider>
         <html lang="en" className={`${geist.variable}`}>
-
-        <body className="flex flex-col gap-4">
-        <div className="w-full">
-          <TopNav/>
-        </div>
-        {children}
-        {modal}
-        <div id="modal-root"></div>
-        </body>
+          <body className={`font-sans ${geist.variable} dark`}>
+            <div className="h-screen grid grid-rows-[auto,1fr]">
+              <TopNav/>
+              <main className={"overflow-y-scroll"}>
+                {children}
+              </main>
+            </div>
+            {modal}
+            <div id="modal-root"></div>
+            </body>
         </html>
       </ClerkProvider>
+      <Toaster/>
   </>
   );
 }
