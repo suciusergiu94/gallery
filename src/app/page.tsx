@@ -13,7 +13,7 @@ async function Images() {
       {images.map((image) => (
         <Link key={image.id} href={`/img/${image.id}`}>
           <div className={"flex flex-col gap-4"}>
-            <div  style={{width: "300px", height: "300px", position: "relative"}} >
+            <div style={{width: "300px", height: "300px", position: "relative"}} >
               <Image src={image.url} alt="image" fill/>
             </div>
             <div className={"wrap-break-word"}>{image.name}</div>
