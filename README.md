@@ -8,8 +8,8 @@
 - [x] Attach database to ui
 - [x] Add auth
 - [x] add image upload
-- [ ] error management
-- [ ] routing/image page (parallel route)
+- [x] error management
+- [x] routing/image page (parallel route)
 - [ ] delete button (w/server action)
 - [ ] Analytics (posthog)
 - [ ] Rate limiting (upstash)

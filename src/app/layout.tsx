@@ -9,7 +9,7 @@ import { Geist } from "next/font/google";
 import {
   ClerkProvider,
 } from '@clerk/nextjs'
-import TopNav from "@/app/_components/TopNav";
+import { TopNav } from "@/app/_components/TopNav";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -24,7 +24,8 @@ const geist = Geist({
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  modal,
+}: Readonly<{ children: React.ReactNode, modal: React.ReactNode }>) {
   return (<>
     <NextSSRPlugin
       routerConfig={extractRouterConfig(ourFileRouter)}
@@ -37,6 +38,8 @@ export default function RootLayout({
           <TopNav/>
         </div>
         {children}
+        {modal}
+        <div id="modal-root"></div>
         </body>
         </html>
       </ClerkProvider>
