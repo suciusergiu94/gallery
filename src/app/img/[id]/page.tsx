@@ -1,4 +1,11 @@
+import { getImage } from "@/server/db/queries";
+
 export default async function PhotoPage({ params, }: {params: Promise<{ id: string }>; }) {
-  const id = (await params).id;
-  return <div className="card">{id}</div>;
+  const imageId = (await params).id;
+  const idAsNumber = Number(imageId)
+
+  if(Number.isNaN(idAsNumber)) throw new Error(`${idAsNumber} is not a number`);
+
+  const image = await getImage(idAsNumber);
+  return <div className="card"><img src={image.url} alt={image.name} /></div>;
 }
