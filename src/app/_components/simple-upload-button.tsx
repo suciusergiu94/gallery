@@ -3,6 +3,7 @@
 import { useUploadThing } from "@/utils/uploadthings";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { usePostHog } from "posthog-js/react";
 
 // inferred input off useUploadThing
 type Input = Parameters<typeof useUploadThing>;
@@ -39,6 +40,7 @@ function UploadSvg() {
 
 export default function SimpleUploadButton() {
   const router = useRouter();
+  const postHog = usePostHog();
   const { inputProps } = useUploadThingInputProps("imageUploader", {
     onClientUploadComplete() {
       toast.dismiss("upload-begin");
@@ -53,6 +55,7 @@ export default function SimpleUploadButton() {
         duration: 10000,
         id: "upload-begin"
       });
+      postHog.capture("upload-begin")
     },
   });
   return (

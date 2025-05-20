@@ -6,11 +6,10 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
-import {
-  ClerkProvider,
-} from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
 import { TopNav } from "@/app/_components/TopNav";
 import { Toaster } from "sonner";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -26,26 +25,25 @@ const geist = Geist({
 export default function RootLayout({
   children,
   modal,
-}: Readonly<{ children: React.ReactNode, modal: React.ReactNode }>) {
-  return (<>
-    <NextSSRPlugin
-      routerConfig={extractRouterConfig(ourFileRouter)}
-    />
+}: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
+  return (
+    <>
+      <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
       <ClerkProvider>
-        <html lang="en" className={`${geist.variable}`}>
-          <body className={`font-sans ${geist.variable} dark`}>
-            <div className="h-screen grid grid-rows-[auto,1fr]">
-              <TopNav/>
-              <main className={"overflow-y-scroll"}>
-                {children}
-              </main>
-            </div>
-            {modal}
-            <div id="modal-root"></div>
+        <PostHogProvider>
+          <html lang="en" className={`${geist.variable}`}>
+            <body className={`font-sans ${geist.variable} dark`}>
+                <div className="grid h-screen grid-rows-[auto,1fr]">
+                  <TopNav />
+                  <main className={"overflow-y-scroll"}>{children}</main>
+                </div>
+                {modal}
+                <div id="modal-root"></div>
             </body>
-        </html>
+          </html>
+        </PostHogProvider>
       </ClerkProvider>
-      <Toaster/>
-  </>
+      <Toaster />
+    </>
   );
 }
