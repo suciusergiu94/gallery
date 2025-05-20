@@ -1,11 +1,10 @@
-import { getImage } from "@/server/db/queries";
+import FullPageImageView from "@/components/full-image-page";
 
 export default async function PhotoPage({ params, }: {params: Promise<{ id: string }>; }) {
   const imageId = (await params).id;
   const idAsNumber = Number(imageId)
 
-  if(Number.isNaN(idAsNumber)) throw new Error(`${idAsNumber} is not a number`);
+  if (Number.isNaN(idAsNumber)) throw new Error(`${idAsNumber} is not a number`);
 
-  const image = await getImage(idAsNumber);
-  return <div className="card"><img src={image.url} alt={image.name} /></div>;
+  return <FullPageImageView id={idAsNumber} />
 }
